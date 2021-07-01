@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { AdminService } from 'app/services/admin.service';
 import Chart from 'chart.js';
+import { Client } from 'app/models/client';
+import { Partner } from 'app/models/partner';
+import { Store } from 'app/models/store';
 
 
 @Component({
@@ -15,8 +19,14 @@ export class DashboardComponent implements OnInit{
   public chartColor;
   public chartEmail;
   public chartHours;
+  clientsCount:number;
 
+  constructor(private adminService:AdminService) {
+    
+    
+    }
     ngOnInit(){
+    
       this.chartColor = "#FFFFFF";
 
       this.canvas = document.getElementById("chartHours");
@@ -205,5 +215,72 @@ export class DashboardComponent implements OnInit{
         data: speedData,
         options: chartOptions
       });
+      this.getClientCount();
+      this.getPartnerCount();
+      this.getMostCommonStores();
+      this.getStores();
+    }
+    //********************Client********* */
+    clients:Client[];
+    getClientCount(){
+      this.adminService.getClientsCount().subscribe((data)=>{
+        this.clients = data
+        this.clientsCount=this.clients.length;
+      })
+    }
+    //*********************partner***************/
+    partners:Partner[];
+    partnerCount:number;
+    getPartnerCount(){
+      this.adminService.getPartnersCount().subscribe((data)=>{
+        this.partners=data;
+        this.partnerCount=this.partners.length;
+      })
+    }
+    //*******************store**************** */
+    MostCommonStores:[string]
+    MostCommonStoresCounter:number
+    storesList: Store[] = [];
+    storesCount:number;
+    storesflag=false;
+    filterTerm!: string;
+    p !: number;
+
+    getMostCommonStores(){
+      this.adminService.getMostCommonStores().subscribe(
+        next=>{
+          this.MostCommonStores=next;
+          this.MostCommonStoresCounter = this.MostCommonStores.length;
+          this.getMostCommonStoresByNames();
+        },
+        error=>{
+          alert(error)
+        }
+      )
+    }
+    getMostCommonStoresByNames(){
+      this.MostCommonStores.forEach(element => {
+        this.adminService.getMostCommonStoresByName(element).subscribe(next=>{
+          this.storesList.push(next);
+        })
+      });
+      console.log(this.storesList)
+    }
+    getStores(){
+      this.adminService.getSores().subscribe(
+       (data)=>{
+          this.storesCount=data.length;
+          
+       },
+       (error)=>{
+           alert("error")
+       })
+       
+  }
+    openMostCommon(){
+        this.storesflag=true;
+    }
+    closeMostCommon(){
+      this.storesflag=false;
     }
 }

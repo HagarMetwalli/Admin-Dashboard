@@ -1,11 +1,15 @@
 import { Routes } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { MapsComponent } from './pages/maps/maps.component';
+import { NotificationsComponent } from './pages/notifications/notifications.component';
+import { TableComponent } from './pages/table/table.component';
+import { TypographyComponent } from './pages/typography/typography.component';
 
 export const AppRoutes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'home',
     pathMatch: 'full',
   }, {
     path: '',
@@ -14,9 +18,26 @@ export const AppRoutes: Routes = [
         {
       path: '',
       loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
-  }]},
+  },  
+]},
+{
+  path: 'tempPartners',
+  component: TypographyComponent
+},
+{
+  path: 'partners',
+  component: TableComponent
+},
+{
+  path: 'clients',
+  component: NotificationsComponent
+},
+{
+  path: 'stores',
+  component: MapsComponent
+},
   {
     path: '**',
-    redirectTo: 'dashboard'
+    redirectTo: 'home'
   }
 ]

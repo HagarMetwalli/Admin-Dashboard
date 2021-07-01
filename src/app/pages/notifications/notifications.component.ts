@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Client } from 'app/models/client';
+import { AdminService } from 'app/services/admin.service';
 import { ToastrService } from "ngx-toastr";
-
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'notifications-cmp',
@@ -8,8 +10,18 @@ import { ToastrService } from "ngx-toastr";
     templateUrl: 'notifications.component.html'
 })
 
-export class NotificationsComponent{
-  constructor(private toastr: ToastrService) {}
+export class NotificationsComponent implements OnInit{
+  
+  clients:Client[];
+  filterTerm: string;
+
+  constructor(private toastr: ToastrService , private adminService:AdminService,private router:Router) {
+      
+  }
+  ngOnInit(){
+
+    this.getClients();
+  }
   showNotification(from, align) {
     const color = Math.floor(Math.random() * 5 + 1);
 
@@ -83,4 +95,36 @@ export class NotificationsComponent{
         break;
     }
   }
+  //********************Client********* */
+
+  getClients(){
+      this.adminService.getClientsCount().subscribe((_clients:Client[])=>{
+        this.clients = _clients;
+      _clients.forEach(client => {
+        client.clientDateOfBirth = this.adminService.dateFunction(client.clientDateOfBirth)
+      });
+      })
+  }
+  delete(clientId:number,namre:string){
+    if(confirm("Are you sure to delete "+name))
+        {
+      this.adminService.deletrClient(clientId).subscribe(
+        next =>{
+          this.reloadComponent();
+            alert("Customer is deleted")
+           
+        },
+        error=>{
+           alert(error)
+        }
+        
+      )
+    }
+    }
+  reloadComponent() {
+    let currentUrl = "clients";
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this.router.onSameUrlNavigation = 'reload';
+        this.router.navigate([currentUrl]);
+    }
 }

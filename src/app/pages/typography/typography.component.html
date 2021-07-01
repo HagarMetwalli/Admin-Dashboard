@@ -1,95 +1,72 @@
+<style>
+  th{
+    text-align: center;
+  }
+</style>
 <div class="row">
   <div class="col-md-12">
-    <div class="card">
-      <div class="card-header">
-        <h5 class="title">Paper Table Heading</h5>
-        <p class="category">Created using Montserrat Font Family</p>
+    <div class="card container">
+      <div class="card-header row form-group">
+        <div class="col">
+          <h4 class="card-title">Partners Requestes</h4>
+        </div>
+        <div class="col-3">
+          <input type="text" class="form-control fa fa-search" autocomplete="off"  placeholder="&#61442; Search..."  [(ngModel)]="filterTerm">
+        </div>
       </div>
       <div class="card-body">
-        <div class="typography-line">
-          <h1>
-            <span>Header 1</span>The Life of Paper Dashboard </h1>
+        <div class="table-striped">
+          <table class="table text-center">
+            <thead class=" text-primary text-center">
+              <th class="col-1">#</th>
+              <th class="col-1">Fristname</th>
+              <th class="col-1">Lastname</th>
+              <th class="col-1">PhoneNumber</th>
+              <th class="col-1">Email</th>
+              <th class="col-1">ContactRole</th>
+              <th class="col-1">#Branches</th>
+              <th class="col-1">WebSite</th>
+              <th class="col-1">Address</th>
+              <!-- <th scope="col">country</th> -->
+              <th class="col-1">storeType</th>
+              <th class="col-1">status</th>
+              <th class="col-2" *ngIf="status=='Pending'" colspan="2">Action</th>    
+            </thead>
+            <tbody>
+              <tr *ngFor="let tempPartner of tempPartners | filter:filterTerm">
+                <td class="col-1">{{tempPartner.tempPartnerStoreId}}</td>
+                <td class="col-1">{{tempPartner.partnerFname}}</td>
+                <td class="col-1">{{tempPartner.partnerLname}}</td>
+                <td class="col-1">{{tempPartner.partnerPhoneNumber}}</td>
+                <td class="col-1">{{tempPartner.partnerEmail}}</td>
+                <td class="col-1">{{tempPartner.partnerContactRole}}</td>
+                <td class="col-1">{{tempPartner.storeBranchesNo}}</td>
+                <td class="col-1">{{tempPartner.storeWebSite}}</td>
+                <td class="col-1">{{tempPartner.storeAddress}}</td>
+                <!--"<td>{{tempPartner.country["countryName"]}}</td> -->
+                <td class="col-1">{{tempPartner.storeType["storeTypeName"]}}</td>
+                <td class="col-1">
+                  {{status}}
+                </td>
+                <td *ngIf="status=='Pending'" >
+                  <div class="row m-auto text-center">
+                    <button type="button" class="btn btn-success mr-1"(click)="approve(tempPartner,tempPartner.tempPartnerStoreId,tempPartner.partnerFname+' '+tempPartner.partnerLname)" aria-label="Left Align">
+                      <span class="glyphicon glyphicon-ok" ></span>
+                    </button>
+                  </div>
+                </td>
+                <td *ngIf="status=='Pending'">
+                  <button type="button" class="btn btn-danger" (click)="reject(tempPartner.tempPartnerStoreId,tempPartner.partnerFname+' '+tempPartner.partnerLname)" aria-label="Left Align">
+                    <span class="glyphicon glyphicon-remove" ></span>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div class="typography-line">
-          <h2>
-            <span>Header 2</span>The Life of Paper Dashboard </h2>
-        </div>
-        <div class="typography-line">
-          <h3>
-            <span>Header 3</span>The Life of Paper Dashboard </h3>
-        </div>
-        <div class="typography-line">
-          <h4>
-            <span>Header 4</span>The Life of Paper Dashboard </h4>
-        </div>
-        <div class="typography-line">
-          <h5>
-            <span>Header 5</span>The Life of Paper Dashboard </h5>
-        </div>
-        <div class="typography-line">
-          <h6>
-            <span>Header 6</span>The Life of Paper Dashboard </h6>
-        </div>
-        <div class="typography-line">
-          <p>
-            <span>Paragraph</span>
-            I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus. I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at.
-          </p>
-        </div>
-        <div class="typography-line">
-          <span>Quote</span>
-          <blockquote>
-            <p class="blockquote blockquote-primary">
-              "I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus. I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at."
-              <br>
-              <br>
-              <small>
-                - Noaa
-              </small>
-            </p>
-          </blockquote>
-        </div>
-        <div class="typography-line">
-          <span>Muted Text</span>
-          <p class="text-muted">
-            I will be the leader of a company that ends up being worth billions of dollars, because I got the answers...
-          </p>
-        </div>
-        <div class="typography-line">
-          <span>Primary Text</span>
-          <p class="text-primary">
-            I will be the leader of a company that ends up being worth billions of dollars, because I got the answers...</p>
-        </div>
-        <div class="typography-line">
-          <span>Info Text</span>
-          <p class="text-info">
-            I will be the leader of a company that ends up being worth billions of dollars, because I got the answers... </p>
-        </div>
-        <div class="typography-line">
-          <span>Success Text</span>
-          <p class="text-success">
-            I will be the leader of a company that ends up being worth billions of dollars, because I got the answers... </p>
-        </div>
-        <div class="typography-line">
-          <span>Warning Text</span>
-          <p class="text-warning">
-            I will be the leader of a company that ends up being worth billions of dollars, because I got the answers...
-          </p>
-        </div>
-        <div class="typography-line">
-          <span>Danger Text</span>
-          <p class="text-danger">
-            I will be the leader of a company that ends up being worth billions of dollars, because I got the answers... </p>
-        </div>
-        <div class="typography-line">
-          <h2>
-            <span>Small Tag</span>
-            Header with small subtitle
-            <br>
-            <small>Use "small" tag for the headers</small>
-          </h2>
-        </div>
+
       </div>
     </div>
   </div>
 </div>
+

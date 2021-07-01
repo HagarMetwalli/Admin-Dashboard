@@ -1,3 +1,15 @@
+<style>
+  th,td{
+    text-align: center;
+  }
+  .align{
+    vertical-align: middle !important;
+  }
+  img{
+    width: 105px;
+    height: 95px;
+  }
+  </style>
 <div class="row">
   <div class="col-lg-3 col-md-6 col-sm-6">
     <div class="card card-stats">
@@ -5,13 +17,13 @@
         <div class="row">
           <div class="col-5 col-md-4">
             <div class="icon-big text-center icon-warning">
-              <i class="nc-icon nc-globe text-warning"></i>
+              <i class="nc-icon nc-single-02 text-warning"></i>
             </div>
           </div>
           <div class="col-7 col-md-8">
             <div class="numbers">
-              <p class="card-category">Capacity</p>
-              <p class="card-title">150GB
+              <p class="card-category">Clients</p>
+              <p class="card-title">{{clientsCount}}
                 <p>
             </div>
           </div>
@@ -20,7 +32,9 @@
       <div class="card-footer ">
         <hr>
         <div class="stats">
-          <i class="fa fa-refresh"></i> Update Now
+          <a routerLink="/clients"class="text-primary">
+            <i class="fa fa-link"></i> More Details
+          </a>
         </div>
       </div>
     </div>
@@ -31,13 +45,13 @@
         <div class="row">
           <div class="col-5 col-md-4">
             <div class="icon-big text-center icon-warning">
-              <i class="nc-icon nc-money-coins text-success"></i>
+              <i class="nc-icon nc-vector text-warning"></i>
             </div>
           </div>
           <div class="col-7 col-md-8">
             <div class="numbers">
-              <p class="card-category">Revenue</p>
-              <p class="card-title">$ 1,345
+              <p class="card-category">Partner</p>
+              <p class="card-title">{{partnerCount}}
                 <p>
             </div>
           </div>
@@ -46,7 +60,9 @@
       <div class="card-footer ">
         <hr>
         <div class="stats">
-          <i class="fa fa-calendar-o"></i> Last day
+          <a routerLink="/partners" class="text-primary">
+            <i class="fa fa-link"></i> More Details
+          </a>
         </div>
       </div>
     </div>
@@ -57,13 +73,13 @@
         <div class="row">
           <div class="col-5 col-md-4">
             <div class="icon-big text-center icon-warning">
-              <i class="nc-icon nc-vector text-danger"></i>
+              <i class="nc-icon nc-shop text-warning"></i>
             </div>
           </div>
           <div class="col-7 col-md-8">
             <div class="numbers">
-              <p class="card-category">Errors</p>
-              <p class="card-title">23
+              <p class="card-category">Stores</p>
+              <p class="card-title">{{storesCount}}
                 <p>
             </div>
           </div>
@@ -72,12 +88,42 @@
       <div class="card-footer ">
         <hr>
         <div class="stats">
-          <i class="fa fa-clock-o"></i> In the last hour
+          <a routerLink="/stores" class="text-primary">
+            <i class="fa fa-link"></i> More Details
+          </a>
         </div>
       </div>
     </div>
   </div>
   <div class="col-lg-3 col-md-6 col-sm-6">
+    <div class="card card-stats">
+      <div class="card-body ">
+        <div class="row">
+          <div class="col-5 col-md-4">
+            <div class="icon-big text-center icon-info">
+              <i class="nc-icon nc-chart-bar-32 text-danger"></i>
+            </div>
+          </div>
+          <div class="col-7 col-md-8">
+            <div class="numbers">
+              <p class="card-category">Stores Trending</p>
+              <p class="card-title">{{MostCommonStoresCounter}}
+                <p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer ">
+        <hr>
+        <div class="stats">
+          <a (click)="openMostCommon()"class="text-primary">
+            <i class="fa fa-link"></i>More Details
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="col-lg-3 col-md-6 col-sm-6">
     <div class="card card-stats">
       <div class="card-body ">
         <div class="row">
@@ -99,6 +145,76 @@
         <hr>
         <div class="stats">
           <i class="fa fa-refresh"></i> Update now
+        </div>
+      </div>
+    </div>
+  </div> -->
+</div>
+
+<div class="row" *ngIf="storesflag">
+  <div class="col-md-12">
+    <div class="card">
+      <div class=" ">
+        <div class="card-header card-title row"> 
+          <div class="col-10 m-auto" style=" left: 0;">Stores Trending</div>
+        <div class="btn btn-danger m-auto"style="width:35px;" (click)="closeMostCommon()">X</div>
+      </div>
+      </div>
+      <div class="card-body">
+        <div class="table-striped">
+          <table class="table text-center">
+            <thead class=" text-primary text-center">
+              <th class="col-1">
+                #
+              </th>
+              <th class="col-1">
+                Name
+              </th>
+              <th class="col-1">
+                Image
+              </th>
+              <th class="col-1">
+                Description
+              </th>
+              <th class="col-1">
+                Address
+              </th>
+            </thead>
+            <tbody class="text-center">
+              <tr *ngFor="let store of storesList">
+                <td class="align">
+                  {{store.storeId}}
+                </td>
+                <td class="align">
+                  {{store.storeName}}
+                </td>
+                <td class="align">
+                  <img src={{store.storeImage}}/>
+                </td>
+                <td class="align">
+                  {{store.storeDescription}}
+                </td>
+                <td class="align">
+                  {{store.storeAddress}}
+                </td>
+                <!-- <td>
+                  <img src="{{partner.store['storeImage']}}"/>
+                </td>
+                <td>
+                  {{partner.store["storeDescription"]}}
+                </td>
+                <td>
+                  {{partner.store["storeAddress"]}}
+                </td>
+                <td>
+                  {{partner.store["storeLatitude"]}}
+                </td>
+                <td>
+                  {{partner.store["storeLongitude"]}}
+                </td> -->
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
