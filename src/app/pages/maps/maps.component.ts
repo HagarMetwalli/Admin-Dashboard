@@ -6,8 +6,8 @@ import { AdminService } from 'app/services/admin.service';
 
 
 @Component({
-    moduleId: module.id,
     selector: 'maps-cmp',
+    moduleId: module.id,
     templateUrl: 'maps.component.html'
    
 })

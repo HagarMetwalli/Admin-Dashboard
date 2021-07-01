@@ -1,6 +1,9 @@
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from '@angular/core';
 import { BrowserModule } from "@angular/platform-browser";
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { FormsModule } from "@angular/forms";
 import { RouterModule } from '@angular/router';
 import { ToastrModule } from "ngx-toastr";
 import { HttpClientModule } from "@angular/common/http";
@@ -12,19 +15,18 @@ import { DatePipe } from '@angular/common';
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routing';
 
-import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-// import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { FormsModule } from "@angular/forms";
+
+
 @NgModule({
   declarations: [
     AppComponent,
-    AdminLayoutComponent
+    AdminLayoutComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    // Ng2SearchPipeModule,
+    Ng2SearchPipeModule,
     FormsModule,
     RouterModule.forRoot(AppRoutes,{
       useHash: true

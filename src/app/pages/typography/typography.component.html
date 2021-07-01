@@ -1,5 +1,5 @@
 <style>
-  th{
+  th,td{
     text-align: center;
   }
 </style>
@@ -34,18 +34,18 @@
             </thead>
             <tbody>
               <tr *ngFor="let tempPartner of tempPartners | filter:filterTerm">
-                <td class="col-1">{{tempPartner.tempPartnerStoreId}}</td>
-                <td class="col-1">{{tempPartner.partnerFname}}</td>
-                <td class="col-1">{{tempPartner.partnerLname}}</td>
-                <td class="col-1">{{tempPartner.partnerPhoneNumber}}</td>
-                <td class="col-1">{{tempPartner.partnerEmail}}</td>
-                <td class="col-1">{{tempPartner.partnerContactRole}}</td>
-                <td class="col-1">{{tempPartner.storeBranchesNo}}</td>
-                <td class="col-1">{{tempPartner.storeWebSite}}</td>
-                <td class="col-1">{{tempPartner.storeAddress}}</td>
+                <td>{{tempPartner.tempPartnerStoreId}}</td>
+                <td >{{tempPartner.partnerFname}}</td>
+                <td >{{tempPartner.partnerLname}}</td>
+                <td >{{tempPartner.partnerPhoneNumber}}</td>
+                <td >{{tempPartner.partnerEmail}}</td>
+                <td >{{tempPartner.partnerContactRole}}</td>
+                <td >{{tempPartner.storeBranchesNo}}</td>
+                <td >{{tempPartner.storeWebSite}}</td>
+                <td >{{tempPartner.storeAddress}}</td>
                 <!--"<td>{{tempPartner.country["countryName"]}}</td> -->
-                <td class="col-1">{{tempPartner.storeType["storeTypeName"]}}</td>
-                <td class="col-1">
+                <td>{{tempPartner.storeType["storeTypeName"]}}</td>
+                <td>
                   {{status}}
                 </td>
                 <td *ngIf="status=='Pending'" >
@@ -64,7 +64,7 @@
             </tbody>
           </table>
         </div>
-
+      
       </div>
     </div>
   </div>

@@ -11,7 +11,7 @@
           <h4 class="card-title">Partners</h4>
         </div>
         <div class="col-3 form-group">
-          <input type="search" class="form-control fa fa-search"  autocomplete="off" placeholder="&#61442; Search..."  [(ngModel)]="filterTerm">
+          <input type="text" class="form-control fa fa-search"  autocomplete="off" placeholder="&#61442; Search..."  [(ngModel)]="filterTerm">
         </div>
       </div>
       <div class="card-body">
@@ -59,7 +59,7 @@
               </th> -->
             </thead>
             <tbody class="text-center">
-              <tr *ngFor="let partner of partners | filter:filterTerm">
+              <tr *ngFor="let partner of partners|filter:filterTerm">
                 <td>
                   {{partner.partnerId}}
                 </td>

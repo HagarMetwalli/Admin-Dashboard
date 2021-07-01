@@ -3,12 +3,13 @@ import { Routes } from '@angular/router';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { MapsComponent } from './pages/maps/maps.component';
 import { NotificationsComponent } from './pages/notifications/notifications.component';
+import { StoresComponent } from './pages/stores/stores.component';
 import { TableComponent } from './pages/table/table.component';
 import { TypographyComponent } from './pages/typography/typography.component';
 
 export const AppRoutes: Routes = [
   {
-    path: '',
+    path: '' ,
     redirectTo: 'home',
     pathMatch: 'full',
   }, {
@@ -34,10 +35,11 @@ export const AppRoutes: Routes = [
 },
 {
   path: 'stores',
-  component: MapsComponent
+  component: StoresComponent
 },
-  {
-    path: '**',
-    redirectTo: 'home'
-  }
+{
+  path: '**',
+  redirectTo: 'home'
+},
+
 ]
