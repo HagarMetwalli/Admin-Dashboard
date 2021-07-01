@@ -15,6 +15,7 @@ import { DatePipe } from '@angular/common';
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routing';
 import { SearchFilterPipe } from './search-filter.pipe';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 
 
 
@@ -23,6 +24,7 @@ import { SearchFilterPipe } from './search-filter.pipe';
     AppComponent,
     AdminLayoutComponent,
     SearchFilterPipe,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,

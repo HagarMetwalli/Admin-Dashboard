@@ -1,74 +1,79 @@
 <style>
-    th,td{
-      text-align: center;
-    }
-  </style>
-  <div class="row">
-    <div class="col-md-12">
-      <div class="card container">
-        <div class="card-header row form-group">
-          <div class="col">
-            <h4 class="card-title">Partners Requestes</h4>
-          </div>
-          <div class="col-3">
-            <!-- <input type="text" class="form-control fa fa-search"  autocomplete="off" placeholder="&#61442; Search..."  [(ngModel)]="filterTerm"> -->
-            <input type="text" name="filterTerm" placeholder="&#61442; Search..." class="form-control fa fa-search"
+  th,
+  td {
+    text-align: center;
+  }
+
+</style>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card container">
+      <div class="card-header row form-group">
+        <div class="col">
+          <h4 class="card-title">Partners Requestes</h4>
+        </div>
+        <div class="col-3">
+          <!-- <input type="text" class="form-control fa fa-search"  autocomplete="off" placeholder="&#61442; Search..."  [(ngModel)]="filterTerm"> -->
+          <input type="text" name="filterTerm" placeholder="&#61442; Search..." class="form-control fa fa-search"
             [(ngModel)]="filterTerm" (input)="search($event.target.value)" />
-          </div>
         </div>
-        <div class="card-body">
-          <div class="table-striped">
-            <table class="table text-center">
-              <thead class=" text-primary text-center">
-                <th class="col-1">#</th>
-                <th class="col-1">Fristname</th>
-                <th class="col-1">Lastname</th>
-                <th class="col-1">PhoneNumber</th>
-                <th class="col-1">Email</th>
-                <th class="col-1">ContactRole</th>
-                <th class="col-1">#Branches</th>
-                <th class="col-1">WebSite</th>
-                <th class="col-1">Address</th>
-                <!-- <th scope="col">country</th> -->
-                <th class="col-1">storeType</th>
-                <th class="col-1">status</th>
-                <th class="col-2" *ngIf="status=='Pending'" colspan="2">Action</th>    
-              </thead>
-              <tbody>
-                <tr *ngFor="let tempPartner of searchTempPartners | filter:filterTerm">
-                  <td>{{tempPartner.tempPartnerStoreId}}</td>
-                  <td >{{tempPartner.partnerFname}}</td>
-                  <td >{{tempPartner.partnerLname}}</td>
-                  <td >{{tempPartner.partnerPhoneNumber}}</td>
-                  <td >{{tempPartner.partnerEmail}}</td>
-                  <td >{{tempPartner.partnerContactRole}}</td>
-                  <td >{{tempPartner.storeBranchesNo}}</td>
-                  <td >{{tempPartner.storeWebSite}}</td>
-                  <td >{{tempPartner.storeAddress}}</td>
-                  <!--"<td>{{tempPartner.country["countryName"]}}</td> -->
-                  <td>{{tempPartner.storeType["storeTypeName"]}}</td>
-                  <td>
-                    {{status}}
-                  </td>
-                  <td *ngIf="status=='Pending'" >
-                    <div class="row m-auto text-center">
-                      <button type="button" class="btn btn-success mr-1"(click)="approve(tempPartner,tempPartner.tempPartnerStoreId,tempPartner.partnerFname+' '+tempPartner.partnerLname)" aria-label="Left Align">
-                        <span class="glyphicon glyphicon-ok" ></span>
-                      </button>
-                    </div>
-                  </td>
-                  <td *ngIf="status=='Pending'">
-                    <button type="button" class="btn btn-danger" (click)="reject(tempPartner.tempPartnerStoreId,tempPartner.partnerFname+' '+tempPartner.partnerLname)" aria-label="Left Align">
-                      <span class="glyphicon glyphicon-remove" ></span>
+      </div>
+      <div class="card-body">
+        <div class="table-striped">
+          <table class="table text-center">
+            <thead class=" text-primary text-center">
+              <th class="col-1">#</th>
+              <th class="col-1">Frist Name</th>
+              <th class="col-1">Last Name</th>
+              <th class="col-1">Phone Number</th>
+              <th class="col-1">Email</th>
+              <th class="col-1">Contact Role</th>
+              <th class="col-1">Branches</th>
+              <th class="col-1">WebSite</th>
+              <th class="col-1">Address</th>
+              <!-- <th scope="col">country</th> -->
+              <th class="col-1">Store Type</th>
+              <th class="col-1">Status</th>
+              <th class="col-2" *ngIf="status=='Pending'" colspan="2">Action</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let tempPartner of searchTempPartners | filter:filterTerm">
+                <td>{{tempPartner.tempPartnerStoreId}}</td>
+                <td>{{tempPartner.partnerFname}}</td>
+                <td>{{tempPartner.partnerLname}}</td>
+                <td>{{tempPartner.partnerPhoneNumber}}</td>
+                <td>{{tempPartner.partnerEmail}}</td>
+                <td>{{tempPartner.partnerContactRole}}</td>
+                <td>{{tempPartner.storeBranchesNo}}</td>
+                <td>{{tempPartner.storeWebSite}}</td>
+                <td>{{tempPartner.storeAddress}}</td>
+                <!--"<td>{{tempPartner.country["countryName"]}}</td> -->
+                <td>{{tempPartner.storeType["storeTypeName"]}}</td>
+                <td>
+                  {{status}}
+                </td>
+                <td *ngIf="status=='Pending'">
+                  <div class="row m-auto text-center">
+                    <button type="button" class="btn btn-success mr-1"
+                      (click)="approve(tempPartner,tempPartner.tempPartnerStoreId,tempPartner.partnerFname+' '+tempPartner.partnerLname)"
+                      aria-label="Left Align">
+                      <span class="glyphicon glyphicon-ok"></span>
                     </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        
+                  </div>
+                </td>
+                <td *ngIf="status=='Pending'">
+                  <button type="button" class="btn btn-danger"
+                    (click)="reject(tempPartner.tempPartnerStoreId,tempPartner.partnerFname+' '+tempPartner.partnerLname)"
+                    aria-label="Left Align">
+                    <span class="glyphicon glyphicon-remove"></span>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+
       </div>
     </div>
   </div>
-
+</div>
