@@ -20,13 +20,14 @@ export class StoresComponent implements OnInit {
        console.log("sfdnnn");
 
    }
+
    //********************Client********* */
    stores:Store[];
    storessCount:number;
    getStores(){
        this.adminService.getSores().subscribe(
         (next)=>{
-           this.stores = next;
+           this.stores = this.searchStores = next;
            this.storessCount=this.stores.length;
            console.log(this.stores)
         },
@@ -55,4 +56,11 @@ export class StoresComponent implements OnInit {
            this.router.navigate([currentUrl]);
        }
 
+/**************Search*************/
+  searchStores: Store[];
+  search(value: string): void {
+
+    this.searchStores = this.stores.filter((val) => val.storeName.toLowerCase().includes(value));
+    console.log(this.searchStores);
+  }
 }

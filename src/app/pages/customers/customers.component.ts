@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { Client } from 'app/models/client';
 import { AdminService } from 'app/services/admin.service';
-import { ToastrService } from "ngx-toastr";
+import { Client } from 'app/models/client';
+import { Partner } from 'app/models/partner';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
-    selector: 'notifications-cmp',
-    moduleId: module.id,
-    templateUrl: 'notifications.component.html'
+  selector: 'app-customers',
+  templateUrl: './customers.component.html',
+  styleUrls: ['./customers.component.css']
 })
+export class CustomersComponent implements OnInit {
 
-export class NotificationsComponent implements OnInit{
-  
-  clients:Client[];
+  Customers:Client[];
+  searchCustomers:Client[];
   filterTerm: string;
 
   constructor(private toastr: ToastrService , private adminService:AdminService,private router:Router) {
@@ -99,10 +100,11 @@ export class NotificationsComponent implements OnInit{
 
   getClients(){
       this.adminService.getClientsCount().subscribe((_clients:Client[])=>{
-        this.clients = _clients;
-      _clients.forEach(client => {
+        this.Customers = _clients;
+        this.Customers.forEach(client => {
         client.clientDateOfBirth = this.adminService.dateFunction(client.clientDateOfBirth)
       });
+      this.searchCustomers=this.Customers;
       })
   }
   delete(clientId:number,namre:string){
@@ -127,4 +129,10 @@ export class NotificationsComponent implements OnInit{
         this.router.onSameUrlNavigation = 'reload';
         this.router.navigate([currentUrl]);
     }
+    /**************Search*************/
+  search(value: string): void {
+
+    this.searchCustomers = this.Customers.filter((val) => val.clientFname.toLowerCase().includes(value));
+    console.log(this.searchCustomers);
+  }
 }

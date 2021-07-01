@@ -14,7 +14,9 @@
             <h4 class="card-title"> Stores</h4>
           </div>
           <div class="col-3">
-            <input type="text" class="form-control fa fa-search"  autocomplete="off" placeholder="&#61442; Search..."  [(ngModel)]="filterTerm">
+            <!-- <input type="text" class="form-control fa fa-search"  autocomplete="off" placeholder="&#61442; Search..."  [(ngModel)]="filterTerm"> -->
+            <input type="text" name="filterTerm" placeholder="&#61442; Search..." class="form-control fa fa-search"
+            [(ngModel)]="filterTerm" (input)="search($event.target.value)" />
           </div>
         </div>
         <div class="card-body">
@@ -41,7 +43,7 @@
                 </th>
               </thead>
               <tbody class="text-center">
-                <tr *ngFor="let store of stores|filter:filterTerm">
+                <tr *ngFor="let store of searchStores |filter: filterTerm">
                   <td class="align">
                     {{store.storeId}}
                   </td>

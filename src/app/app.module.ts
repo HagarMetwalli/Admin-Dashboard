@@ -14,6 +14,7 @@ import { FixedPluginModule} from './shared/fixedplugin/fixedplugin.module';
 import { DatePipe } from '@angular/common';
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routing';
+import { SearchFilterPipe } from './search-filter.pipe';
 
 
 
@@ -21,6 +22,7 @@ import { AppRoutes } from './app.routing';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
+    SearchFilterPipe,
   ],
   imports: [
     BrowserModule,

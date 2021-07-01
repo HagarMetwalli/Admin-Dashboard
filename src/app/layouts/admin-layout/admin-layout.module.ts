@@ -9,12 +9,12 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
 
 import { DashboardComponent }       from '../../pages/dashboard/dashboard.component';
 import { UserComponent }            from '../../pages/user/user.component';
-import { TableComponent }           from '../../pages/table/table.component';
-import { TypographyComponent }      from '../../pages/typography/typography.component';
 import { IconsComponent }           from '../../pages/icons/icons.component';
 import { StoresComponent }            from '../../pages/stores/stores.component';
-import { NotificationsComponent }   from '../../pages/notifications/notifications.component';
-import { UpgradeComponent }         from '../../pages/upgrade/upgrade.component';
+import { PartnersComponent } from 'app/pages/partners/partners.component';
+import { TempPartnersComponent } from 'app/pages/temp-partners/temp-partners.component';
+import { CustomersComponent } from 'app/pages/customers/customers.component';
+
 
 
 
@@ -29,12 +29,12 @@ import { UpgradeComponent }         from '../../pages/upgrade/upgrade.component'
   declarations: [
     DashboardComponent,
     UserComponent,
-    TableComponent,
-    UpgradeComponent,
-    TypographyComponent,
+    PartnersComponent,
+    TempPartnersComponent,
+    CustomersComponent,
     IconsComponent,
     StoresComponent,
-    NotificationsComponent,
+   
   ]
 })
 
