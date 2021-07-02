@@ -6,10 +6,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./reset-password.component.css']
 })
 export class ResetPasswordComponent implements OnInit {
+  public user: User;  
 
-  constructor() { }
+  ngOnInit() {  
+      this.user = {  
+          username: '',  
+          email: '',  
+          password: '',  
+          confirmPassword: ''  
+      };  
+  }  
 
-  ngOnInit(): void {
-  }
+  onSubmit(model: User) {  
+    console.log("model");  
+  }  
+}  
 
-}
+export interface User {  
+    username: string;  
+    email: string;  
+    password: string;  
+    confirmPassword: string;  
+}  
+
+
+

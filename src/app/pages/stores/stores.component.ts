@@ -10,6 +10,10 @@ import { AdminService } from 'app/services/admin.service';
 })
 export class StoresComponent implements OnInit {
 
+    //Pagenation
+    itemsCount: number = 5;
+    p!: number;
+    //end paggination
   constructor( private adminService:AdminService,private router:Router){}
   filterTerm: string;
    ngOnInit() {
@@ -63,4 +67,5 @@ export class StoresComponent implements OnInit {
     this.searchStores = this.stores.filter((val) => val.storeName.toLowerCase().includes(value));
     console.log(this.searchStores);
   }
+/*************Pagination**********/
 }

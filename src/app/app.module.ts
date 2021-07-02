@@ -18,13 +18,13 @@ import { SearchFilterPipe } from './search-filter.pipe';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
     AdminLayoutComponent,
     SearchFilterPipe,
     ResetPasswordComponent,
+   
   ],
   imports: [
     BrowserModule,

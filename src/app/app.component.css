@@ -1,3 +1,18 @@
 thead,tbody,th,td{
     text-align: center;
 }
+th{
+    color: black !important;
+    font-family: 'arial';
+
+  }
+  th,td{
+    text-align: center;
+  }
+  
+  th {
+    color: orange;
+  }
+  .align{
+    vertical-align: middle !important;
+  }

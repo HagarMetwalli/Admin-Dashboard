@@ -17,7 +17,7 @@ export class TempPartnersComponent implements OnInit {
   searchTempPartners:TemPartner[]
   randompassword:string
   partner:Partner = new Partner("","","",0,"",0,"",0);
-  store:Store = new Store("Not updaed yet","https://localhost:44311/Images/Stores/defaut.png","Not updaed yet",1,1,1,1,1,1,"Not updaed yet",1,1,1,1,1,1,1);
+  store:Store = new Store("Not updaed yet","https://localhost:44311/Images/Stores/default.png","Not updaed yet",1,1,1,1,1,1,"Not updaed yet",1,1,1,1,1,1,1);
   WelcomeRequest : WelcomeRequest = new WelcomeRequest(" ", " ", " ") ;
   status:string = "Pending";
   filterTerm: string;
