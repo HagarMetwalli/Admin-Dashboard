@@ -17,7 +17,7 @@ import { TempPartnersComponent } from 'app/pages/temp-partners/temp-partners.com
 import { CustomersComponent } from 'app/pages/customers/customers.component';
 // Directive  
 import { ComparePasswordDirective } from '../../directives/compare-password.directive';  
-
+import { NgxLoadingXModule } from 'ngx-loading-x';
 
 
 @NgModule({
@@ -27,7 +27,8 @@ import { ComparePasswordDirective } from '../../directives/compare-password.dire
     FormsModule,
     Ng2SearchPipeModule,
     NgbModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgxLoadingXModule
   ],
   declarations: [
     DashboardComponent,

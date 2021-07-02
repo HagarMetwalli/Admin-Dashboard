@@ -34,7 +34,7 @@
               <th>Address</th>
               <!-- <th scope="col">country</th> -->
               <th class="">StoreType</th>
-              <th class="">Status</th>
+              <!-- <th class="">Status</th> -->
               <th  *ngIf="status=='Pending'" colspan="2">Action</th>
             </thead>
             <tbody>
@@ -50,21 +50,21 @@
                 <td>{{tempPartner.storeAddress}}</td>
                 <!--"<td>{{tempPartner.country["countryName"]}}</td> -->
                 <td>{{tempPartner.storeType["storeTypeName"]}}</td>
-                <td>
+                <!-- <td>
                   {{status}}
-                </td>
-                <td *ngIf="status=='Pending'">
+                </td> -->
+                <td >
                   <div class="row m-auto text-center">
                     <button type="button" class="btn btn-success mr-1"
-                      (click)="approve(tempPartner,tempPartner.tempPartnerStoreId,tempPartner.partnerFname+' '+tempPartner.partnerLname)"
+                      (click)="confirmBox(tempPartner,tempPartner.tempPartnerStoreId)"
                       aria-label="Left Align">
                       <span class="glyphicon glyphicon-ok"></span>
                     </button>
                   </div>
                 </td>
-                <td *ngIf="status=='Pending'">
+                <td>
                   <button type="button" class="btn btn-danger"
-                    (click)="reject(tempPartner.tempPartnerStoreId,tempPartner.partnerFname+' '+tempPartner.partnerLname)"
+                    (click)="rejectBox(tempPartner.tempPartnerStoreId,tempPartner.partnerFname+' '+tempPartner.partnerLname)"
                     aria-label="Left Align">
                     <span class="glyphicon glyphicon-remove"></span>
                   </button>
@@ -78,3 +78,5 @@
     </div>
   </div>
 </div>
+<ngx-loading-x [show]="load">
+</ngx-loading-x>

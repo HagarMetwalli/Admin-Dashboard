@@ -5,6 +5,7 @@ import { Store } from 'app/models/store';
 import { TemPartner } from 'app/models/TempPartner';
 import { WelcomeRequest } from 'app/models/WelcomeRequestDto';
 import { AdminService } from 'app/services/admin.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-temp-partners',
@@ -19,7 +20,6 @@ export class TempPartnersComponent implements OnInit {
   partner:Partner = new Partner("","","",0,"",0,"",0);
   store:Store = new Store("Not updaed yet","https://localhost:44311/Images/Stores/default.png","Not updaed yet",1,1,1,1,1,1,"Not updaed yet",1,1,1,1,1,1,1);
   WelcomeRequest : WelcomeRequest = new WelcomeRequest(" ", " ", " ") ;
-  status:string = "Pending";
   filterTerm: string;
 
   constructor(private adminService:AdminService,private router: Router,) {}    
@@ -28,7 +28,7 @@ export class TempPartnersComponent implements OnInit {
       this.getTempPartners();
   }
 
-  getTempPartners(){
+   getTempPartners(){
       this.adminService.getTempPartners().subscribe((data)=>{
           this.tempPartners=this.searchTempPartners=data;
           
@@ -39,45 +39,42 @@ export class TempPartnersComponent implements OnInit {
       
   }
   storeId:number = 0;
-    async approve(temp : TemPartner,id:number){
-     // console.log(temp.partnerEmail)
-   
-     if(confirm("Are you sure to approve "+name))
-     {
-      partner :Partner;
-      await this.adminService.getPartnerByEmail(temp.partnerEmail).subscribe(
+     approve(temp : TemPartner,id:number){
+
+        this.adminService.getPartnerByEmail(temp.partnerEmail).subscribe(
           next=>{
-              console.log("f",next);
            if(next.status == 404 ) 
             {              
-                alert("The Email will send in some minutes ...")      
-                this.status="Waiting"
+                // alert("The Email will send in some minutes ...");
+                this.alertWithInfo();
                 this.randompassword = Math.random().toString(36).slice(-12);
                 this.WelcomeRequest.UserName = temp.partnerFname +" "+temp.partnerLname ;
                 this.WelcomeRequest.Email = temp.partnerEmail;
                 this.WelcomeRequest.Password = this.randompassword;
-                console.log("data...",this.WelcomeRequest)
-               
+                // console.log("data...",this.WelcomeRequest)
                 this.adminService.approvingPartner(this.WelcomeRequest).subscribe(
-                    (next)=>{
-                    alert("The Email was sent");
+                    next=>{
+                        this.load=false;
+                        this.alertWithSuccess();
                         this.postStore(temp.tempPartnerStoreId);
                         this.deleteTemPartner(temp.tempPartnerStoreId);
                     },
-                    (error)=>{
-                        this.status="Pending"
-                        alert("The Email didn't send, try again");
+                    error=>{
+                        console.log("DDDDDDDDDD");
+                        this.load=false;
+                        this.erroalert();
           
                     })
                 
             }
             else{
-                alert("The Email is already exist")      
+                this.load=false;
+                this.alertEmailExist();    
 
             }
         }
       )
-    }
+    // }
   }
   reject(id:number , name :string){
       if(confirm("Are you sure to delete "+name))
@@ -88,7 +85,6 @@ export class TempPartnersComponent implements OnInit {
 
   deleteTemPartner(id:number){
       this.adminService.deleteTempPartner(id).subscribe((data)=>{
-          console.log("delete",data);
           this.reloadComponent();
       })
   }
@@ -129,5 +125,79 @@ export class TempPartnersComponent implements OnInit {
     this.searchTempPartners = this.tempPartners.filter((val) => val.partnerFname.toLowerCase().includes(value));
     console.log(this.searchTempPartners);
   }
+  /************loading******** */
+  load:boolean= false;
+  alertWithSuccess(){  
+    Swal.fire({  
+        icon:'success',
+        title: 'You submitted succesfully!',  
+        confirmButtonColor:'green'})  
+  }  
+  erroalert()  
+  {  
+    Swal.fire({  
+      icon: 'error',  
+      title: 'Oops...',  
+      text: 'Something went wrong, try again! ',
+      confirmButtonColor:'green'  
+    //   footer:  '<a [routerLink]="["/tempPartners"]">Please try again</a>'
 
+    })  
+  }  
+  confirmBox(temp : TemPartner,id:number){  
+    Swal.fire({  
+      title: 'Are you sure want to register partner?',  
+      icon: 'warning',  
+      showCancelButton: true,  
+      confirmButtonText: 'Yes',  
+      confirmButtonColor:'green',
+      cancelButtonText: 'No' , 
+      cancelButtonColor:'red'
+    }).then((result) => { 
+        if (result.value){
+            this.approve(temp,id);
+        } 
+       else if (result.dismiss === Swal.DismissReason.cancel) {  
+        this.load=false;
+       }  
+
+    })  
+  } 
+  alertWithInfo(){  
+    Swal.fire({title:'The Email will send!',confirmButtonColor:'green',icon:'info'}).then(()=>{
+        this.load=true;
+
+    })
+  }  
+  alertEmailExist(){
+    Swal.fire({title:'TThe Email is already exist!',confirmButtonColor:'green',icon:'error'}).then(()=>{
+
+    })
+  }
+  /********reject************/
+  rejectBox(id:number,name :string){  
+    Swal.fire({  
+      title: 'Are you sure want to reject '+name+ " ?",  
+      icon: 'warning',  
+      showCancelButton: true,  
+      confirmButtonText: 'Yes',  
+      confirmButtonColor:'green',
+      cancelButtonText: 'No' , 
+      cancelButtonColor:'red'
+    }).then((result) => { 
+        if (result.value)
+        {   
+            this.deleteTemPartner(id);
+            this.rejectedAlert(name);
+
+        } 
+       else if (result.dismiss === Swal.DismissReason.cancel) {  
+        this.load=false;
+       }  
+
+    })  
+  } 
+  rejectedAlert(name:string){  
+    Swal.fire({title: name+' is refused successfully!',confirmButtonColor:'green'})
+  }  
 }
