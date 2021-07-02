@@ -15,11 +15,11 @@
           </div>
           <div class="col-4 mr-3 row">
               <div class="col-2  bd-highlight">
-                <select class="custom-select" style="border:1px solid orange;height: 32px; border-radius: 5px;" [(ngModel)]="itemsCount">
+                <select class="custom-select" style="border:1px solid orange;height: 35px; width: 50px; border-radius: 5px;" [(ngModel)]="itemsCount">
                   <option selected>5</option>
                   <option>10</option>
                   <option>20</option>
-              </select>
+                </select>
               </div>
             
             <div class="col">
@@ -53,12 +53,12 @@
                 </th>
               </thead>
               <tbody class="text-center">
-                <tr *ngFor="let store of stores |filter: filterTerm | paginate : {
+                <tr *ngFor="let store of stores  | paginate : {
                   id: 'myList',
                   itemsPerPage: itemsCount,
                   currentPage: p,
                   totalItems: stores.length
-              }">
+                } |filter: filterTerm">
                   <td class="align">
                     {{store.storeId}}
                   </td>
