@@ -1,7 +1,8 @@
 <style>
-  th,
-  td {
+  th
+   {
     text-align: center;
+    font-size: 1.3rem !important;
   }
 
 </style>
@@ -22,19 +23,19 @@
         <div class="table-striped">
           <table class="table text-center">
             <thead class=" text-primary text-center">
-              <th class="col-1">#</th>
-              <th class="col-1">Fristname</th>
-              <th class="col-1">Lastname</th>
-              <th class="col-1">Phone No.</th>
-              <th class="col-1">Email</th>
-              <th class="col-1">Contact Role</th>
-              <th class="col-1">Branches</th>
-              <th class="col-1">WebSite</th>
-              <th class="col-1">Address</th>
+              <th>#</th>
+              <th>Fname</th>
+              <th>Lname</th>
+              <th>Phone No.</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Branches No.</th>
+              <th>WebSite</th>
+              <th>Address</th>
               <!-- <th scope="col">country</th> -->
-              <th class="col-1">StoreType</th>
-              <th class="col-1">Status</th>
-              <th class="col-2" *ngIf="status=='Pending'" colspan="2">Action</th>
+              <th class="">StoreType</th>
+              <th class="">Status</th>
+              <th  *ngIf="status=='Pending'" colspan="2">Action</th>
             </thead>
             <tbody>
               <tr *ngFor="let tempPartner of searchTempPartners | filter:filterTerm">

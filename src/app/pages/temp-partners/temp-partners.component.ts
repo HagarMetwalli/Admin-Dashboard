@@ -39,31 +39,45 @@ export class TempPartnersComponent implements OnInit {
       
   }
   storeId:number = 0;
-  approve(temp : TemPartner,id:number){
+    async approve(temp : TemPartner,id:number){
      // console.log(temp.partnerEmail)
    
      if(confirm("Are you sure to approve "+name))
      {
-      this.status="Waiting"
-      this.randompassword = Math.random().toString(36).slice(-12);
-      this.WelcomeRequest.UserName = temp.partnerFname +" "+temp.partnerLname ;
-      this.WelcomeRequest.Email = temp.partnerEmail;
-      this.WelcomeRequest.Password = this.randompassword;
-      console.log("data...",this.WelcomeRequest)
-     
-      alert("The Email will send in some minutes ...")
-      this.adminService.approvingPartner(this.WelcomeRequest).subscribe(
-          (next)=>{
-          alert("The Email was sent");
-              this.postStore(temp.tempPartnerStoreId);
-              this.deleteTemPartner(temp.tempPartnerStoreId);
-          },
-          (error)=>{
-              this.status="Pending"
-              alert("The Email didn't send, try again");
+      partner :Partner;
+      await this.adminService.getPartnerByEmail(temp.partnerEmail).subscribe(
+          next=>{
+              console.log("f",next);
+           if(next.status == 404 ) 
+            {              
+                alert("The Email will send in some minutes ...")      
+                this.status="Waiting"
+                this.randompassword = Math.random().toString(36).slice(-12);
+                this.WelcomeRequest.UserName = temp.partnerFname +" "+temp.partnerLname ;
+                this.WelcomeRequest.Email = temp.partnerEmail;
+                this.WelcomeRequest.Password = this.randompassword;
+                console.log("data...",this.WelcomeRequest)
+               
+                this.adminService.approvingPartner(this.WelcomeRequest).subscribe(
+                    (next)=>{
+                    alert("The Email was sent");
+                        this.postStore(temp.tempPartnerStoreId);
+                        this.deleteTemPartner(temp.tempPartnerStoreId);
+                    },
+                    (error)=>{
+                        this.status="Pending"
+                        alert("The Email didn't send, try again");
+          
+                    })
+                
+            }
+            else{
+                alert("The Email is already exist")      
 
-          })
-      }
+            }
+        }
+      )
+    }
   }
   reject(id:number , name :string){
       if(confirm("Are you sure to delete "+name))
@@ -92,8 +106,7 @@ export class TempPartnersComponent implements OnInit {
       this.partner.partnerEmail =  temp.partnerEmail;
       this.partner.partnerPhoneNo = temp.partnerPhoneNumber;
        this.partner.StoreId =id;
-       this.adminService.postPartners(this.partner).subscribe((data)=>{
-       });
+       this.adminService.postPartners(this.partner).subscribe( );
   }
   /***********************Store************** */
   errorMessage:any;

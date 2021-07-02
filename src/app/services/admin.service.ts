@@ -96,6 +96,25 @@ export class AdminService implements OnInit {
       })
     );    
  }
+ getPartnerByEmail(email:string): Observable<any> {
+  return this.http.get <Partner>(API_Partner+"/GetpartnerByEmail/"+email,{ observe: 'response' })
+  .pipe(
+    map((res) => {
+      if (res) {
+        if (res.status === 200) {
+          return res.body;
+        }
+        return res.status;
+      }
+    }),
+    catchError((error: any) => {
+      if (error.status > 400 || error.status === 500) {
+        return [{ status: error.status }];
+      }
+      return error.status;
+    })
+  );    
+}
  approvingPartner(WelcomeRequest:WelcomeRequest) {
    console.log("obj",WelcomeRequest)
     return this.http.post(API_Partner_Approving,WelcomeRequest)
