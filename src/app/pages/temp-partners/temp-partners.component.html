@@ -35,42 +35,51 @@
               <!-- <th scope="col">country</th> -->
               <th class="">StoreType</th>
               <!-- <th class="">Status</th> -->
-              <th  *ngIf="status=='Pending'" colspan="2">Action</th>
+              <th colspan="2">Action</th>
             </thead>
-            <tbody>
-              <tr *ngFor="let tempPartner of searchTempPartners | filter:filterTerm">
-                <td>{{tempPartner.tempPartnerStoreId}}</td>
-                <td>{{tempPartner.partnerFname}}</td>
-                <td>{{tempPartner.partnerLname}}</td>
-                <td>{{tempPartner.partnerPhoneNumber}}</td>
-                <td>{{tempPartner.partnerEmail}}</td>
-                <td>{{tempPartner.partnerContactRole}}</td>
-                <td>{{tempPartner.storeBranchesNo}}</td>
-                <td>{{tempPartner.storeWebSite}}</td>
-                <td>{{tempPartner.storeAddress}}</td>
-                <!--"<td>{{tempPartner.country["countryName"]}}</td> -->
-                <td>{{tempPartner.storeType["storeTypeName"]}}</td>
-                <!-- <td>
-                  {{status}}
-                </td> -->
-                <td >
-                  <div class="row m-auto text-center">
-                    <button type="button" class="btn btn-success mr-1"
-                      (click)="confirmBox(tempPartner,tempPartner.tempPartnerStoreId)"
+            <tbody *ngIf="!empty" >
+                <tr *ngFor="let tempPartner of searchTempPartners | filter:filterTerm" >
+                  <td>{{tempPartner.tempPartnerStoreId}}</td>
+                  <td>{{tempPartner.partnerFname}}</td>
+                  <td>{{tempPartner.partnerLname}}</td>
+                  <td>{{tempPartner.partnerPhoneNumber}}</td>
+                  <td>{{tempPartner.partnerEmail}}</td>
+                  <td>{{tempPartner.partnerContactRole}}</td>
+                  <td>{{tempPartner.storeBranchesNo}}</td>
+                  <td>{{tempPartner.storeWebSite}}</td>
+                  <td>{{tempPartner.storeAddress}}</td>
+                  <!--"<td>{{tempPartner.country["countryName"]}}</td> -->
+                  <td>{{tempPartner.storeType["storeTypeName"]}}</td>
+                  <!-- <td>
+                    {{status}}
+                  </td> -->
+                  <td >
+                    <div class="row m-auto text-center">
+                      <button type="button" class="btn btn-success mr-1"
+                        (click)="confirmBox(tempPartner,tempPartner.tempPartnerStoreId)"
+                        aria-label="Left Align">
+                        <span class="glyphicon glyphicon-ok"></span>
+                      </button>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row m-auto text-center">
+                    <button type="button" class="btn btn-danger"
+                      (click)="rejectBox(tempPartner.tempPartnerStoreId,tempPartner.partnerFname+' '+tempPartner.partnerLname)"
                       aria-label="Left Align">
-                      <span class="glyphicon glyphicon-ok"></span>
+                      <span class="glyphicon glyphicon-remove"></span>
                     </button>
-                  </div>
-                </td>
-                <td>
-                  <button type="button" class="btn btn-danger"
-                    (click)="rejectBox(tempPartner.tempPartnerStoreId,tempPartner.partnerFname+' '+tempPartner.partnerLname)"
-                    aria-label="Left Align">
-                    <span class="glyphicon glyphicon-remove"></span>
-                  </button>
-                </td>
-              </tr>
+                    </div>
+                  </td>
+                </tr>
             </tbody>
+            <tbody *ngIf="empty" >
+                <tr>
+                  <td colspan="12" style="font-family: Arial, Helvetica, sans-serif;font-size: 2rem; color: gray;">
+                    No Requests Yet
+                  </td>
+                </tr>
+          </tbody>
           </table>
         </div>
 

@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
 })
 export class TempPartnersComponent implements OnInit {
 
-    tempPartners: TemPartner[]
+    tempPartners: TemPartner[] ;
     searchTempPartners: TemPartner[]
     randompassword: string
     partner: Partner = new Partner("", "", "", 0, "", 0, "", 0);
@@ -26,11 +26,17 @@ export class TempPartnersComponent implements OnInit {
     ngOnInit(): void {
         this.getTempPartners();
     }
-
+    empty:boolean = true;
     getTempPartners() {
         this.adminService.getTempPartners().subscribe((data) => {
             this.tempPartners = this.searchTempPartners = data;
-
+            if(this.tempPartners.length!=null)
+            {
+                this.empty= false;
+            }
+            else{
+                this.empty=true;
+            }
         },
             (err) => {
                 alert("erorr" + err)
