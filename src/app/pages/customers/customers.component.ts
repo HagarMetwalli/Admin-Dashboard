@@ -15,7 +15,10 @@ export class CustomersComponent implements OnInit {
   Customers:Client[];
   searchCustomers:Client[];
   filterTerm: string;
-
+  //Pagenation
+  itemsCount: number = 5;
+  p!: number;
+  //end paggination
   constructor(private toastr: ToastrService , private adminService:AdminService,private router:Router) {
       
   }
